@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
     public delegate void OnRotate(float mouseX, float mouseY);
     public static OnRotate OnRotateAction;
     public float MouseSensitivity;
+    public GameObject BulletPrefab;
+    public Transform BulletSpawn;
+    public float BulletCooldown;
+
+    List<GameObject> BulletList;
+    float BulletTimer;
 
     private void Start()
     {
@@ -20,6 +26,22 @@ public class PlayerController : MonoBehaviour
         float vertical = -Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
         if(OnRotateAction!=null)
            OnRotateAction(horizontal, vertical);
+
+        if(Input.GetMouseButton(0) || Input.GetMouseButtonDown(0))
+        {
+            if(BulletTimer >= BulletCooldown)
+            {
+                GameObject go = Instantiate(BulletPrefab, BulletSpawn);
+                go.transform.localPosition = Vector3.zero;
+                Destroy(go, 1.5f);
+                BulletTimer = 0;
+            }
+            BulletTimer += Time.deltaTime;
+        }
+        else
+        {
+            BulletTimer = BulletCooldown;
+        }
     }
 
     void Rotate(float mouseX, float mouseY)

@@ -198,8 +198,8 @@ GameObject:
   - component: {fileID: 6156419797148722366}
   - component: {fileID: 9124090675384446481}
   m_Layer: 0
-  m_Name: omegaPatao@Capoeira
-  m_TagString: Untagged
+  m_Name: PataoCapoeira
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

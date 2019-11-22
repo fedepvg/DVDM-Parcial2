@@ -2165,8 +2165,8 @@ GameObject:
   - component: {fileID: 2637201421383835323}
   - component: {fileID: 1110576799557238150}
   m_Layer: 0
-  m_Name: omegaPatao@Goofy Running
-  m_TagString: Untagged
+  m_Name: PataoGoofyRunning
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
