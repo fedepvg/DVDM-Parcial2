@@ -7,9 +7,11 @@ public class EnemyCreator : MonoBehaviour
     public GameObject []SpawnPoints;
     public GameObject []EnemiesPrefabs;
     public GameObject EnemiesParent;
+    public float TimeToSpawn;
 
     const int MaxEnemies = 7;
     List<GameObject> EnemyList;
+    float SpawnTimer;
 
     void Start()
     {
