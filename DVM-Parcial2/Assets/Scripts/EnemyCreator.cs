@@ -44,7 +44,13 @@ public class EnemyCreator : MonoBehaviour
             EnemyList[enemyIndex].transform.position = SpawnPoints[randomSpawnPoint].transform.position;
             EnemyList[enemyIndex].transform.rotation = Quaternion.identity;
             EnemyList[enemyIndex].SetActive(true);
-            ActivatedEnemies++;
+        }
+
+        ActivatedEnemies = 0;
+        foreach(GameObject go in EnemyList)
+        {
+            if (go.activeSelf)
+                ActivatedEnemies++;
         }
         SpawnTimer += Time.deltaTime;
     }

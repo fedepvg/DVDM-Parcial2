@@ -6,6 +6,6 @@ public class Bullet : MonoBehaviour
 {
     private void Start()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * 75, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 50, ForceMode.VelocityChange);
     }
 }
