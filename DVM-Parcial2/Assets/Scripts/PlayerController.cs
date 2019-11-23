@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     float BulletTimer;
     bool IsShooting = false;
     int Health = 100;
+    int BulletsLeft = 50;
 
     private void Start()
     {
@@ -57,12 +58,13 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (BulletTimer >= BulletCooldown)
+        if (BulletTimer >= BulletCooldown && BulletsLeft > 0)
         {
             GameObject go = ObjectPooler.Instance.GetPooledObject("Bullet");
             go.GetComponent<Bullet>().ActivateBullet();
             go.GetComponent<Bullet>().DeactivateBullet(1.5f);
             BulletTimer = 0;
+            BulletsLeft--;
         }
         BulletTimer += Time.deltaTime;
     }
@@ -92,5 +94,10 @@ public class PlayerController : MonoBehaviour
     public int GetHealth()
     {
         return Health;
+    }
+    
+    public int GetBulletsLeft()
+    {
+        return BulletsLeft;
     }
 }

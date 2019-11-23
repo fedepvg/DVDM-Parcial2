@@ -10,10 +10,12 @@ public class UIInGame : MonoBehaviour
     public GameObject Crosshair;
     public Text WaveText;
     public Text AliveEnemiesText;
+    public Text BulletsText;
 
     int PrevPlayerHealth;
     int ActualWave;
     int AliveEnemies;
+    int BulletsLeft;
 
     private void Awake()
     {
@@ -43,7 +45,14 @@ public class UIInGame : MonoBehaviour
         if (currentAliveEnemies != AliveEnemies)
         {
             AliveEnemies = currentAliveEnemies;
-            AliveEnemiesText.text = "Enemies: "+ currentAliveEnemies;
+            AliveEnemiesText.text = currentAliveEnemies.ToString();
+        }
+
+        int currentBullets = Player.GetBulletsLeft();
+        if (currentBullets != BulletsLeft)
+        {
+            BulletsLeft = currentBullets;
+            BulletsText.text = currentBullets.ToString();
         }
     }
 
