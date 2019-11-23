@@ -42,9 +42,6 @@ public class PataoMovement : MonoBehaviour
 
     void OnEnable()
     {
-        transform.LookAt(PlayerTransform);
-        transform.localRotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
-        GetComponent<Rigidbody>().velocity = transform.forward * Speed;
         Health = 100;
     }
 
@@ -61,6 +58,14 @@ public class PataoMovement : MonoBehaviour
             gameObject.SetActive(false);
             EnemyWaveManager.Instance.KillEnemy();
         }
+    }
+
+    public void SetPlayerTransform(Transform player)
+    {
+        PlayerTransform = player;
+        transform.LookAt(player);
+        transform.localRotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
+        GetComponent<Rigidbody>().velocity = transform.forward * Speed;
     }
 
     private void OnTriggerEnter(Collider other)

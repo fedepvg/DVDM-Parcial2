@@ -13,7 +13,6 @@ public class EnemyCreator : MonoBehaviour
     const int MaxEnemies = 7;
     List<GameObject> EnemyList;
     float SpawnTimer = 0;
-    int ActivatedEnemies = 0;
 
     private void Awake()
     {
@@ -22,42 +21,41 @@ public class EnemyCreator : MonoBehaviour
 
     void Start()
     {
-        EnemyList = new List<GameObject>();
-        for (int i = 0; i < MaxEnemies; i++)
-        {
-            int randomEnemy = Random.Range(0, EnemiesPrefabs.Length);
-            GameObject go = Instantiate(EnemiesPrefabs[randomEnemy], EnemiesParent.transform);
-            go.name = EnemiesPrefabs[randomEnemy].name + i;
-            go.SetActive(false);
-            go.GetComponent<PataoMovement>().PlayerTransform = PlayerTransform;
-            EnemyList.Add(go);
-        }
+        //EnemyList = new List<GameObject>();
+        //for (int i = 0; i < MaxEnemies; i++)
+        //{
+        //    int randomEnemy = Random.Range(0, EnemiesPrefabs.Length);
+        //    GameObject go = Instantiate(EnemiesPrefabs[randomEnemy], EnemiesParent.transform);
+        //    go.name = EnemiesPrefabs[randomEnemy].name + i;
+        //    go.SetActive(false);
+        //    go.GetComponent<PataoMovement>().PlayerTransform = PlayerTransform;
+        //    EnemyList.Add(go);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(SpawnTimer >= TimeToSpawn && ActivatedEnemies < MaxEnemies && WaveEnemiesLeft > 0)
+        if(SpawnTimer >= TimeToSpawn && WaveEnemiesLeft > 0)
         {
             SpawnTimer = 0;
-            int enemyIndex;
-            for(enemyIndex = 0; enemyIndex < EnemyList.Count; enemyIndex++)
-            {
-                if (!EnemyList[enemyIndex].activeSelf)
-                    break;
-            }
+            //int enemyIndex;
+            //for(enemyIndex = 0; enemyIndex < EnemyList.Count; enemyIndex++)
+            //{
+            //    if (!EnemyList[enemyIndex].activeSelf)
+            //        break;
+            //}
             int randomSpawnPoint = Random.Range(0, SpawnPoints.Length);
-            EnemyList[enemyIndex].transform.position = SpawnPoints[randomSpawnPoint].transform.position;
-            EnemyList[enemyIndex].transform.rotation = Quaternion.identity;
-            EnemyList[enemyIndex].SetActive(true);
-            WaveEnemiesLeft--;
-        }
+            //EnemyList[enemyIndex].transform.position = SpawnPoints[randomSpawnPoint].transform.position;
+            //EnemyList[enemyIndex].transform.rotation = Quaternion.identity;
+            //EnemyList[enemyIndex].SetActive(true);
+            GameObject go = ObjectPooler.Instance.GetPooledObject("Enemy");
+            go.transform.position = SpawnPoints[randomSpawnPoint].transform.position;
+            go.transform.rotation = Quaternion.identity;
+            go.SetActive(true);
+            go.GetComponent<PataoMovement>().SetPlayerTransform(PlayerTransform);
 
-        ActivatedEnemies = 0;
-        foreach(GameObject go in EnemyList)
-        {
-            if (go.activeSelf)
-                ActivatedEnemies++;
+            WaveEnemiesLeft--;
         }
         SpawnTimer += Time.deltaTime;
     }

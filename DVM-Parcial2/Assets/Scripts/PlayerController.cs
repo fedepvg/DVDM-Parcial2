@@ -59,9 +59,9 @@ public class PlayerController : MonoBehaviour
     {
         if (BulletTimer >= BulletCooldown)
         {
-            GameObject go = Instantiate(BulletPrefab, BulletSpawn);
-            go.transform.localPosition = Vector3.zero;
-            Destroy(go, 1.5f);
+            GameObject go = ObjectPooler.Instance.GetPooledObject("Bullet");
+            go.GetComponent<Bullet>().ActivateBullet();
+            go.GetComponent<Bullet>().DeactivateBullet(1.5f);
             BulletTimer = 0;
         }
         BulletTimer += Time.deltaTime;
