@@ -59,7 +59,7 @@ public class PataoMovement : MonoBehaviour
         if (Health <= 0)
         {
             gameObject.SetActive(false);
-
+            EnemyWaveManager.Instance.KillEnemy();
         }
     }
 

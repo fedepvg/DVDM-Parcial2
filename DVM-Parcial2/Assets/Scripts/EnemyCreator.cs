@@ -8,11 +8,17 @@ public class EnemyCreator : MonoBehaviour
     public GameObject EnemiesParent;
     public Transform PlayerTransform;
     public float TimeToSpawn;
+    public int WaveEnemiesLeft;
 
     const int MaxEnemies = 7;
     List<GameObject> EnemyList;
     float SpawnTimer = 0;
     int ActivatedEnemies = 0;
+
+    private void Awake()
+    {
+        EnemyWaveManager.OnNewWaveAction += StartNextWave;
+    }
 
     void Start()
     {
@@ -31,7 +37,7 @@ public class EnemyCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SpawnTimer >= TimeToSpawn && ActivatedEnemies < MaxEnemies)
+        if(SpawnTimer >= TimeToSpawn && ActivatedEnemies < MaxEnemies && WaveEnemiesLeft > 0)
         {
             SpawnTimer = 0;
             int enemyIndex;
@@ -44,6 +50,7 @@ public class EnemyCreator : MonoBehaviour
             EnemyList[enemyIndex].transform.position = SpawnPoints[randomSpawnPoint].transform.position;
             EnemyList[enemyIndex].transform.rotation = Quaternion.identity;
             EnemyList[enemyIndex].SetActive(true);
+            WaveEnemiesLeft--;
         }
 
         ActivatedEnemies = 0;
@@ -53,5 +60,12 @@ public class EnemyCreator : MonoBehaviour
                 ActivatedEnemies++;
         }
         SpawnTimer += Time.deltaTime;
+    }
+
+    public void StartNextWave()
+    {
+        TimeToSpawn = EnemyWaveManager.Instance.GetCurrentWaveSpawnTime();
+        WaveEnemiesLeft = EnemyWaveManager.Instance.GetCurrentWaveEnemies();
+        SpawnTimer = 0;
     }
 }
