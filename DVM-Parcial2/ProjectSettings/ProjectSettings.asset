@@ -717,6 +717,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Collab: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -737,10 +738,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: acd7d239-7965-4690-948d-98c0edd98e78
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: DVMParcial2
+  organizationId: fedepvg
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
