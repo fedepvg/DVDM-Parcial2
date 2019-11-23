@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 0}
   Health: 100
+  triggers: 0
 --- !u!65 &1518026343765518039
 BoxCollider:
   m_ObjectHideFlags: 0

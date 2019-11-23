@@ -8,8 +8,9 @@ public class PataoMovement : MonoBehaviour
     public Transform PlayerTransform;
     public int Health = 100;
     const float Speed = 8;
+    public int triggers;
 
-    private void Awake()
+    private void Start()
     {
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -37,6 +38,11 @@ public class PataoMovement : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
         GetComponent<Rigidbody>().velocity = transform.forward * Speed;
         Health = 100;
+    }
+
+    private void Update()
+    {
+        
     }
 
     void CheckHealthsStatus()
