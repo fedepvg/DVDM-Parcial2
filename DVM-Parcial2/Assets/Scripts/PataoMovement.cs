@@ -5,31 +5,39 @@ using UnityEngine.EventSystems;
 
 public class PataoMovement : MonoBehaviour
 {
+    public delegate void OnEnemyLocked(bool isShooting);
+    public static OnEnemyLocked OnEnemyLockedAction;
+    public delegate void OnPunch();
+    public static OnPunch OnPunchAction;
     public Transform PlayerTransform;
     public int Health = 100;
-    const float Speed = 8;
     public int triggers;
+
+    const float Speed = 8;
 
     private void Start()
     {
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        //EventTrigger.Entry exit = new EventTrigger.Entry();
+        EventTrigger.Entry exit = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerEnter;
-        //exit.eventID = EventTriggerType.PointerExit;
-        entry.callback.AddListener((data) => { OnPointerEnterDelegate((PointerEventData)data); });
-        //exit.callback.AddListener((data) => { OnPointerExitDelegate((PointerEventData)data); });
+        exit.eventID = EventTriggerType.PointerExit;
+        entry.callback.AddListener((data) => { StartShootingDelegate((PointerEventData)data); });
+        exit.callback.AddListener((data) => { StopShootingDelegate((PointerEventData)data); });
         trigger.triggers.Add(entry);
+        trigger.triggers.Add(exit);
     }
 
-    public void OnPointerEnterDelegate(PointerEventData data)
+    public void StartShootingDelegate(PointerEventData data)
     {
-        Debug.Log("Enter called.");
+        if(OnEnemyLockedAction!=null)
+            OnEnemyLockedAction(true);
     }
 
-    public void OnPointerExitDelegate(PointerEventData data)
+    public void StopShootingDelegate(PointerEventData data)
     {
-        Debug.Log("Exit called.");
+        if (OnEnemyLockedAction != null)
+            OnEnemyLockedAction(false);
     }
 
     void OnEnable()
@@ -40,9 +48,10 @@ public class PataoMovement : MonoBehaviour
         Health = 100;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        
+        if (OnEnemyLockedAction != null)
+            OnEnemyLockedAction(false);
     }
 
     void CheckHealthsStatus()
@@ -59,5 +68,16 @@ public class PataoMovement : MonoBehaviour
             CheckHealthsStatus();
             Debug.Log(Health);
         }
+        else if(other.tag=="Player")
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Animator>().SetTrigger("Box");
+        }
+    }
+
+    void Punch()
+    {
+        if (OnPunchAction != null)
+            OnPunchAction();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+#if UNITY_STANDALONE
     float UpMaxXRotation = 270f;
     float DownMaxXRotation = 90f;
     float XAxisRotation;
@@ -39,4 +40,5 @@ public class CameraController : MonoBehaviour
         eulerRot.x = newXRot;
         transform.eulerAngles = eulerRot;
     }
+#endif
 }
