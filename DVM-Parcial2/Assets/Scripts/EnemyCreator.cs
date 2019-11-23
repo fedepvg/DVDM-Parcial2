@@ -53,7 +53,7 @@ public class EnemyCreator : MonoBehaviour
             go.transform.position = SpawnPoints[randomSpawnPoint].transform.position;
             go.transform.rotation = Quaternion.identity;
             go.SetActive(true);
-            go.GetComponent<PataoMovement>().SetPlayerTransform(PlayerTransform);
+            go.GetComponent<PataoBehaviour>().SetPlayerTransform(PlayerTransform);
 
             WaveEnemiesLeft--;
         }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PataoMovement : MonoBehaviour
+public class PataoBehaviour : MonoBehaviour
 {
     public delegate void OnEnemyLocked(bool isShooting);
     public static OnEnemyLocked OnEnemyLockedAction;
     public delegate void OnPunch();
     public static OnPunch OnPunchAction;
+    public delegate void OnKilled(Vector3 spawnPos);
+    public static OnKilled OnKilledAction;
     public Transform PlayerTransform;
     public int Health = 100;
     public int triggers;
@@ -55,6 +57,8 @@ public class PataoMovement : MonoBehaviour
     {
         if (Health <= 0)
         {
+            if (OnKilledAction != null)
+                OnKilledAction(transform.position);
             gameObject.SetActive(false);
             EnemyWaveManager.Instance.KillEnemy();
         }

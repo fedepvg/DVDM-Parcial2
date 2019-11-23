@@ -15,14 +15,15 @@ public class PlayerController : MonoBehaviour
     float BulletTimer;
     bool IsShooting = false;
     int Health = 100;
-    int BulletsLeft = 50;
+    int BulletsLeft = 100;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         OnRotateAction += Rotate;
-        PataoMovement.OnEnemyLockedAction = SetShootingState;
-        PataoMovement.OnPunchAction = RecievePunch;
+        PickupBehaviour.OnPickUpAction = UsePickup;
+        PataoBehaviour.OnEnemyLockedAction = SetShootingState;
+        PataoBehaviour.OnPunchAction = RecievePunch;
     }
 
     private void Update()
@@ -81,8 +82,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckHealthsStatus()
     {
-        if (Health <= 0)
-            Health = 0;
+        Health = Mathf.Clamp(Health, 0, 100);
     }
 
     void RecievePunch()
@@ -99,5 +99,18 @@ public class PlayerController : MonoBehaviour
     public int GetBulletsLeft()
     {
         return BulletsLeft;
+    }
+
+    void UsePickup(string tag)
+    {
+        if(tag == "HealthKit")
+        {
+            Health += 25;
+            CheckHealthsStatus();
+        }
+        else if(tag == "AmmoBox")
+        {
+            BulletsLeft += 20;
+        }
     }
 }
