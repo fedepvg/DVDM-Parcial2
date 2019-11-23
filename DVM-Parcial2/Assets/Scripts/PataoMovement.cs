@@ -57,7 +57,10 @@ public class PataoMovement : MonoBehaviour
     void CheckHealthsStatus()
     {
         if (Health <= 0)
+        {
             gameObject.SetActive(false);
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,7 +69,6 @@ public class PataoMovement : MonoBehaviour
         {
             Health -= 25;
             CheckHealthsStatus();
-            Debug.Log(Health);
         }
         else if(other.tag=="Player")
         {
