@@ -64,10 +64,10 @@ public class EnemyWaveManager : MonoBehaviourSingleton<EnemyWaveManager>
 
     IEnumerator StartNewWave()
     {
+        CurrentWave++;
 
         yield return new WaitForSeconds(3);
 
-        CurrentWave++;
         CurrentWaveEnemies += 3;
         AliveEnemies = CurrentWaveEnemies;
         EnemySpawnTime -= 0.5f;

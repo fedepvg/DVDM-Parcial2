@@ -11,20 +11,18 @@ public class UIInGame : MonoBehaviour
     public Text WaveText;
     public Text AliveEnemiesText;
     public Text BulletsText;
+    public Text NewWaveText;
 
     int PrevPlayerHealth;
     int ActualWave;
     int AliveEnemies;
     int BulletsLeft;
-
-    private void Awake()
-    {
-        EnemyWaveManager.OnNewWaveAction += SetNextWave;
-    }
+    bool UINewWave = false;
+    float NewWaveTimer = 1f;
 
     void Start()
     {
-        ActualWave = EnemyWaveManager.Instance.GetCurrentWave();
+        ActualWave = 0;
         PrevPlayerHealth = Player.GetHealth();
         AliveEnemies = 0;
 #if UNITY_ANDROID
@@ -54,11 +52,31 @@ public class UIInGame : MonoBehaviour
             BulletsLeft = currentBullets;
             BulletsText.text = currentBullets.ToString();
         }
-    }
 
-    void SetNextWave()
-    {
-        ActualWave = EnemyWaveManager.Instance.GetCurrentWave();
-        WaveText.text = "Wave: " + ActualWave;
+        int currentWave = EnemyWaveManager.Instance.GetCurrentWave();
+        if(currentWave != ActualWave)
+        {
+            ActualWave = currentWave;
+            UINewWave = true;
+            NewWaveText.gameObject.SetActive(true);
+        }
+
+
+        if (UINewWave)
+        {
+            NewWaveTimer -= Time.deltaTime;
+            if(NewWaveTimer <= 0)
+            {
+                WaveText.text = "Wave: " + ActualWave;
+                NewWaveTimer = 1;
+                NewWaveText.gameObject.SetActive(false);
+                UINewWave = false;
+            }
+            NewWaveText.text = "Starting New Wave";
+        }
+        else
+        {
+            NewWaveText.gameObject.SetActive(false);
+        }
     }
 }
