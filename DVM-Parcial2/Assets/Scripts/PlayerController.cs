@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour
     void CheckHealthsStatus()
     {
         Health = Mathf.Clamp(Health, 0, 100);
+        if (Health == 0)
+            GameManager.Instance.KillPlayer();
     }
 
     void RecievePunch()

@@ -12,6 +12,8 @@ public class UIInGame : MonoBehaviour
     public Text AliveEnemiesText;
     public Text BulletsText;
     public Text NewWaveText;
+    public GameObject VRGOCanvas;
+    public GameObject PCGOCanvas;
 
     int PrevPlayerHealth;
     int ActualWave;
@@ -22,6 +24,7 @@ public class UIInGame : MonoBehaviour
 
     void Start()
     {
+        GameManager.OnPlayerKilledAction = ActivateGOCanvas;
         ActualWave = 0;
         PrevPlayerHealth = Player.GetHealth();
         AliveEnemies = 0;
@@ -78,5 +81,25 @@ public class UIInGame : MonoBehaviour
         {
             NewWaveText.gameObject.SetActive(false);
         }
+    }
+
+    void ActivateGOCanvas()
+    {
+#if UNITY_ANDROID
+        VRGOCanvas.SetActive(true);
+#endif
+#if UNITY_STANDALONE
+        PCGOCanvas.SetActive(true);
+#endif
+    }
+
+    public void RestartGame()
+    {
+        GameManager.Instance.RestartGame();
+    }
+
+    public void ExitGame()
+    {
+        GameManager.Instance.ExitGame();
     }
 }

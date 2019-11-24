@@ -8,6 +8,9 @@ TagManager:
   - Bullet
   - HealthKit
   - AmmoBox
+  - ContinueButton
+  - RestartButton
+  - ExitButton
   layers:
   - Default
   - TransparentFX
