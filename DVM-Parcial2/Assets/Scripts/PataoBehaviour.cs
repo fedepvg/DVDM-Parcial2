@@ -53,10 +53,11 @@ public class PataoBehaviour : MonoBehaviour
             OnEnemyLockedAction(false);
     }
 
-    void CheckHealthsStatus()
+    void CheckHealthStatus()
     {
         if (Health <= 0)
         {
+            GameManager.Instance.AddDeadEnemy();
             if (OnKilledAction != null)
                 OnKilledAction(transform.position);
             gameObject.SetActive(false);
@@ -77,7 +78,7 @@ public class PataoBehaviour : MonoBehaviour
         if(other.tag=="Bullet")
         {
             Health -= 25;
-            CheckHealthsStatus();
+            CheckHealthStatus();
         }
         else if(other.tag=="Player")
         {

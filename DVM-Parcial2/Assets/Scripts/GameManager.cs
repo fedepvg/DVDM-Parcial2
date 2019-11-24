@@ -11,26 +11,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     int WavesToUnlockAchievement = 4;
     int DeadPataos = 0;
     int DeadPataosToUnlockAchievement = 15;
+    public GameObject VrStuff;
 
     void Start()
     {
 #if UNITY_ANDROID
         GPSManager.Instance.LogIn();
-#endif
-    }
-
-    void Update()
-    {
-#if UNITY_ANDROID
-        if (EnemyWaveManager.Instance.GetCurrentWave() == WavesToUnlockAchievement)
-        {
-            GPSManager.Instance.UnlockAchievementWaves();
-        }
-        
-        if (DeadPataos == DeadPataosToUnlockAchievement)
-        {
-            GPSManager.Instance.UnlockAchievementKiller();
-        }
+        VrStuff.SetActive(true);
 #endif
     }
 
@@ -64,5 +51,27 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         Time.timeScale = 0;
         if (OnPlayerKilledAction != null)
             OnPlayerKilledAction();
+    }
+
+    public void AddClearedWave()
+    {
+        WavesCleared++;
+#if UNITY_ANDROID
+        if (WavesCleared == WavesToUnlockAchievement)
+        {
+            GPSManager.Instance.UnlockAchievementWaves();
+        }
+#endif
+    }
+
+    public void AddDeadEnemy()
+    {
+        DeadPataos++;
+#if UNITY_ANDROID
+        if (DeadPataos == DeadPataosToUnlockAchievement)
+        {
+            GPSManager.Instance.UnlockAchievementKiller();
+        }
+#endif
     }
 }

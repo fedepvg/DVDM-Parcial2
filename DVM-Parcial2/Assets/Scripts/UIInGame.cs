@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIInGame : MonoBehaviour
@@ -22,6 +23,14 @@ public class UIInGame : MonoBehaviour
     bool UINewWave = false;
     float NewWaveTimer = 1f;
 
+    private void Awake()
+    {
+#if UNITY_ANDROID
+        GetComponent<EventSystem>().enabled = false;
+        GetComponent<StandaloneInputModule>().enabled = false;
+#endif
+    }
+
     void Start()
     {
         GameManager.OnPlayerKilledAction = ActivateGOCanvas;
@@ -30,6 +39,11 @@ public class UIInGame : MonoBehaviour
         AliveEnemies = 0;
 #if UNITY_ANDROID
         Crosshair.SetActive(false);
+        GetComponent<EventSystem>().enabled = false;
+        GetComponent<StandaloneInputModule>().enabled = false;
+#endif
+#if UNITY_STANDALONE
+        PCGOCanvas.SetActive(false);
 #endif
     }
 
@@ -90,6 +104,8 @@ public class UIInGame : MonoBehaviour
 #endif
 #if UNITY_STANDALONE
         PCGOCanvas.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 #endif
     }
 

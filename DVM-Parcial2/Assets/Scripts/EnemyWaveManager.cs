@@ -65,6 +65,7 @@ public class EnemyWaveManager : MonoBehaviourSingleton<EnemyWaveManager>
     IEnumerator StartNewWave()
     {
         CurrentWave++;
+        GameManager.Instance.AddClearedWave();
 
         yield return new WaitForSeconds(3);
 

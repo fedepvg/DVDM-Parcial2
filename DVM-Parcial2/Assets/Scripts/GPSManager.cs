@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms;
 
 public class GPSManager : MonoBehaviourSingleton<GPSManager>
 {
+#if UNITY_ANDROID
     bool LoggedIn;
 
     private void Start()
@@ -57,4 +58,5 @@ public class GPSManager : MonoBehaviourSingleton<GPSManager>
             
         });
     }
+#endif
 }
