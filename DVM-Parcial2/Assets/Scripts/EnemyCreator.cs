@@ -17,6 +17,7 @@ public class EnemyCreator : MonoBehaviour
     private void Awake()
     {
         EnemyWaveManager.OnNewWaveAction = StartNextWave;
+        StartNextWave();
     }
 
     void Update()

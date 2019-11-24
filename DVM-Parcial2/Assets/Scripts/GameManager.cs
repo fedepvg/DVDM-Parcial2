@@ -34,9 +34,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 #endif
     }
 
-    public void WatchAd()
+    public void ResetTimeScale()
     {
         Time.timeScale = 1;
+    }
+
+    public void WatchAd()
+    {
         AdManager.Instance.UIWatchRewardedAd();        
     }
 

@@ -50,7 +50,7 @@ public class ButtonBehaviour : MonoBehaviour
     {
         switch(gameObject.tag)
         {
-            case "ContineButton":
+            case "ContinueButton":
                 GameManager.Instance.WatchAd();
                 break;
             case "RestartButton":

@@ -7,7 +7,6 @@ using System;
 public class AdManager : MonoBehaviourSingleton<AdManager>
 {
     private string GameIdAndroid = "3373380";
-    private string VideoKey = "video";
     private string RewardedKey = "rewardedVideo";
 
     public override void Awake()
@@ -40,7 +39,7 @@ public class AdManager : MonoBehaviourSingleton<AdManager>
                 Debug.Log("El Ad Rewarded fallo");
                 break;
             case ShowResult.Finished:
-                Debug.Log("El Ad Rewarded termino");
+                GameManager.Instance.ResetTimeScale();
                 break;
             case ShowResult.Skipped:
                 Debug.Log("El Ad Rewarded se skipeo");
